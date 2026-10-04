@@ -55,10 +55,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def article_params
-    params.require(:article).permit(:title, :description)
-  end
-
   def require_same_user
     if current_user != @article.user
       flash[:alert] = "You can only edit or delete your own articles"
