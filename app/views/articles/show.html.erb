@@ -5,27 +5,34 @@
       <small class="text-muted">ID: <%= @article.id %></small>
       <small class="text-muted">Author: <%= @article.user.username if @article.user %></small>
     </div>
-    <div class="mb-4">
-      <% @article.categories.each do |category| %>
-        <%= link_to category.name, category_path(category), class: "badge bg-info text-decoration-none me-1" %>
-      <% end %>
-    </div>
     <div class="card-body">
       <h1 class="card-title h3 mb-3"><%= @article.title %></h1>
-      <p class="card-text text-secondary lead mb-4"><%= @article.description %></p>
+      <p class="card-text text-secondary lead mb-3"><%= @article.description %></p>
+
+      <div class="mb-4">
+        <% if @article.categories.any? %>
+          <% @article.categories.each do |category| %>
+            <%= link_to category.name, category_path(category), class: "badge bg-info text-decoration-none me-1" %>
+          <% end %>
+        <% else %>
+          <small class="text-muted">No categories</small>
+        <% end %>
+      </div>
 
       <div class="d-flex justify-content-between align-items-center border-top pt-3">
         <%= link_to "Back to articles", articles_path, class: "btn btn-outline-secondary" %>
-        <div>
-          <%= link_to "Edit", edit_article_path(@article), class: "btn btn-warning me-1" %>
-          <%= link_to "Delete",
-                      article_path(@article),
-                      class: "btn btn-danger",
-                      data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure you want to delete this article?"
-                      } %>
-        </div>
+        <% if logged_in? && current_user == @article.user %>
+          <div>
+            <%= link_to "Edit", edit_article_path(@article), class: "btn btn-warning me-1" %>
+            <%= link_to "Delete",
+                        article_path(@article),
+                        class: "btn btn-danger",
+                        data: {
+                          turbo_method: :delete,
+                          turbo_confirm: "Are you sure you want to delete this article?"
+                        } %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
