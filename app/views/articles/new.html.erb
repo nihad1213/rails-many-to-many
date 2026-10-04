@@ -1,0 +1,39 @@
+<div class="container my-4" style="max-width: 650px;">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h1 class="h3 mb-0 fs-4">Create a New Article</h1>
+    </div>
+    <div class="card-body">
+      <% if @article.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h2 class="h6 alert-heading fw-bold">
+            <%= pluralize(@article.errors.count, "error") %> prevented this article from being saved:
+          </h2>
+          <hr class="my-2">
+          <ul class="mb-0 ps-3">
+            <% @article.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @article, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :title, class: "form-label fw-semibold" %>
+          <%= f.text_field :title, class: "form-control", placeholder: "Enter article title" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :description, class: "form-label fw-semibold" %>
+          <%= f.text_area :description, rows: 5, class: "form-control", placeholder: "Enter article description" %>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <%= link_to "Back to articles", articles_path, class: "btn btn-outline-secondary" %>
+          <%= f.submit "Create Article", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
