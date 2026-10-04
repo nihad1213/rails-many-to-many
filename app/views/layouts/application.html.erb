@@ -24,13 +24,18 @@
   <body>
     <header class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div class="container">
-        <%= link_to "Rails Blog", root_path, class: "navbar-brand fw-bold" %>
+        <div class="d-flex align-items-center gap-3">
+          <%= link_to "Rails Blog", root_path, class: "navbar-brand fw-bold" %>
+          <%= link_to "Articles", articles_path, class: "nav-link text-light" %>
+          <%= link_to "Categories", categories_path, class: "nav-link text-light" %>
+        </div>
         <div class="d-flex align-items-center gap-2">
           <% if logged_in? %>
             <span class="text-light me-2">
               Signed in as <strong><%= current_user.username %></strong>
             </span>
             <%= link_to "New Article", new_article_path, class: "btn btn-outline-light" %>
+            <%= link_to "New Category", new_category_path, class: "btn btn-outline-light" %>
             <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-danger" %>
           <% else %>
             <%= link_to "Login", login_path, class: "btn btn-outline-light" %>

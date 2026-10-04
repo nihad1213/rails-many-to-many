@@ -4,7 +4,11 @@ class ArticlesController < ApplicationController
   before_action :require_same_user, only: [ :edit, :update, :destroy ]
 
   def index
-    @pagy, @articles = pagy(:offset, Article.includes(:user).order(created_at: :desc), limit: 5)
+    @pagy, @articles = pagy(:offset, Article.includes(:user, :categories).order(created_at: :desc), limit: 5)
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :description, category_ids: [])
   end
 
   def new

@@ -29,6 +29,17 @@
           <%= f.text_area :description, rows: 5, class: "form-control", placeholder: "Enter article description" %>
         </div>
 
+        <div class="mb-3">
+          <%= f.label :category_ids, "Categories", class: "form-label fw-semibold" %>
+          <%= f.collection_select :category_ids,
+                                  Category.order(:name),
+                                  :id,
+                                  :name,
+                                  {},
+                                  { multiple: true, size: 5, class: "form-select" } %>
+          <div class="form-text">Hold Ctrl (Cmd on Mac) to select multiple categories.</div>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mt-4">
           <%= link_to "Back to articles", articles_path, class: "btn btn-outline-secondary" %>
           <%= f.submit "Create Article", class: "btn btn-primary" %>

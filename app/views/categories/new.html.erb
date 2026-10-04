@@ -1,0 +1,34 @@
+<div class="container my-4" style="max-width: 650px;">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h1 class="h3 mb-0 fs-4">Create a New Category</h1>
+    </div>
+    <div class="card-body">
+      <% if @category.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h2 class="h6 alert-heading fw-bold">
+            <%= pluralize(@category.errors.count, "error") %> prevented this category from being saved:
+          </h2>
+          <hr class="my-2">
+          <ul class="mb-0 ps-3">
+            <% @category.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @category, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :name, class: "form-label fw-semibold" %>
+          <%= f.text_field :name, class: "form-control", placeholder: "Enter category name" %>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <%= link_to "Back to categories", categories_path, class: "btn btn-outline-secondary" %>
+          <%= f.submit "Create Category", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

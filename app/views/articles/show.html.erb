@@ -5,6 +5,11 @@
       <small class="text-muted">ID: <%= @article.id %></small>
       <small class="text-muted">Author: <%= @article.user.username if @article.user %></small>
     </div>
+    <div class="mb-4">
+      <% @article.categories.each do |category| %>
+        <%= link_to category.name, category_path(category), class: "badge bg-info text-decoration-none me-1" %>
+      <% end %>
+    </div>
     <div class="card-body">
       <h1 class="card-title h3 mb-3"><%= @article.title %></h1>
       <p class="card-text text-secondary lead mb-4"><%= @article.description %></p>
